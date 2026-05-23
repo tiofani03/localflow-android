@@ -74,7 +74,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.github.tiofani"
+                groupId = "com.github.tiofani03"
                 artifactId = "localflow-sdk"
                 version = "1.0.0"
             }
@@ -82,7 +82,8 @@ afterEvaluate {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/tiofani/localflow-android")
+                val githubRepo = System.getenv("GITHUB_REPOSITORY") ?: "tiofani03/localflow-android"
+                url = uri("https://maven.pkg.github.com/$githubRepo")
                 credentials {
                     username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user") as String? ?: ""
                     password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key") as String? ?: ""

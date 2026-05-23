@@ -1,0 +1,37 @@
+name: Check JitPack Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-publish:
+    name: Check Maven Local Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+          cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Show publish tasks
+        run: ./gradlew :localflow:tasks --all | grep publish || true
+
+      - name: Publish release to Maven Local
+        run: ./gradlew :localflow:clean :localflow:publishReleasePublicationToMavenLocal --stacktrace
+
+      - name: Check Maven Local artifact
+        run: |
+          echo "Checking Maven Local artifact..."
+          ls -lah ~/.m2/repository/com/github/tiofani03/localflow-sdk/1.0.0/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_title">Beranda Utama (Fallback)</string>
+    <string name="home_subtitle">Selamat Datang (Fallback)</string>
+    <string name="login_title">Masuk (Fallback)</string>
+    <string name="login_button">Tombol Masuk (Fallback)</string>
+    
+    <string name="app_name">Locaflow Demo</string>
+    <string name="detail_title">Halaman Detail XML</string>
+    <string name="detail_desc">Halaman ini menunjukkan bahwa bahasa yang dilokalisasi tetap bertahan di berbagai aktivitas XML yang berbeda.</string>
+
+    <string name="profile_section">Pengaturan Profil</string>
+    <string name="input_name_hint">Nama Lengkap</string>
+    <string name="notification_switch">Aktifkan Notifikasi Push</string>
+    <string name="terms_checkbox">Saya setuju dengan Syarat dan Ketentuan</string>
+    <string name="save_button">Simpan Perubahan</string>
+    <string name="back_button">Kembali ke Beranda</string>
+</resources>

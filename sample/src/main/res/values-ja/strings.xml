@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_title">メインホーム (Fallback)</string>
+    <string name="home_subtitle">ようこそ (Fallback)</string>
+    <string name="login_title">ログイン (Fallback)</string>
+    <string name="login_button">サインイン (Fallback)</string>
+    
+    <string name="app_name">Locaflow Demo</string>
+    <string name="detail_title">XML詳細ページ</string>
+    <string name="detail_desc">このページは、ローカライズされた言語が異なるXMLアクティビティ間で保持されることを示しています。</string>
+
+    <string name="profile_section">プロフィール設定</string>
+    <string name="input_name_hint">フルネーム</string>
+    <string name="notification_switch">プッシュ通知を有効にする</string>
+    <string name="terms_checkbox">利用規約に同意します</string>
+    <string name="save_button">変更を保存</string>
+    <string name="back_button">ホームに戻る</string>
+</resources>

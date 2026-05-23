@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fallback values if SDK network/disk cache is not available yet -->
+    <string name="home_title">Default Home (Fallback)</string>
+    <string name="home_subtitle">Default Welcome (Fallback)</string>
+    <string name="login_title">Default Login (Fallback)</string>
+    <string name="login_button">Default Sign In (Fallback)</string>
+    
+    <!-- App generic resources -->
+    <string name="app_name">Locaflow Demo</string>
+    <string name="detail_title">XML Detail Page</string>
+    <string name="detail_desc">This page demonstrates that the localized language persists across different XML activities.</string>
+    
+    <string name="profile_section">Profile Settings</string>
+    <string name="input_name_hint">Full Name</string>
+    <string name="notification_switch">Enable Push Notifications</string>
+    <string name="terms_checkbox">I agree to the Terms and Conditions</string>
+    <string name="save_button">Save Changes</string>
+    <string name="back_button">Back to Home</string>
+</resources>

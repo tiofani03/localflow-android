@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="#FAFAFA">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_title"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_subtitle"
+        android:textSize="18sp"
+        android:textColor="#666666"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tv_version_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SDK Version: N/A"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:layout_marginTop="24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginVertical="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Language (XML Dynamic Switch)"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:layout_marginBottom="12dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_lang_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btn_lang_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bahasa"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btn_lang_ja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日本語" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Force Manual Sync"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FF9800" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginVertical="32dp" />
+
+    <Button
+        android:id="@+id/btn_go_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open XML Detail Page"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btn_go_compose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Jetpack Compose Demo"
+        android:backgroundTint="#3F51B5"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import com.localflow.sdk.Localflow
 @Composable
 @ReadOnlyComposable
 fun localflowString(key: String): String {
+    val lang = LocalCurrentLanguage.current // Force compose to track language changes
     val translations = LocalTranslations.current
     return translations[key] ?: Localflow.getStringOrNull(key) ?: key
 }

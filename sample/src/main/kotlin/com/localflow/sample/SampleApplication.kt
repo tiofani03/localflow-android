@@ -11,7 +11,7 @@ class SampleApplication : Application() {
         
         // Configuration mapped to localhost Next.js server running in dev mode
         val config = LocalflowConfig.Builder(
-            apiKey = "loc_live_90b73700dd2ffc69a9c3701f87ec3dec0d40ea232d09718690041f942143c82e", // Seeded key
+            apiKey = "lloc_live_8cd75ae4819d67e8cbda063460f79b8c3f6fde7969b084702f62773208df299f", // Seeded key
             baseUrl = "http://192.168.0.114:3000"
         )
             .defaultLanguage("en")

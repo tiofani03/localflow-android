@@ -108,8 +108,8 @@ internal class SyncManager(
                     return fetchAndPersistAllLocalizations(
                         targetVersion = boot.latestVersion,
                         etag = null, // fresh fetch
-                        defaultLang = boot.defaultLanguage?.code ?: config.defaultLanguage,
-                        availableLangs = boot.availableLanguages
+                        fallbackDefaultLang = boot.defaultLanguage?.code ?: config.defaultLanguage,
+                        fallbackAvailableLangs = boot.availableLanguages
                     )
                 }
                 is ApiResult.Error -> {
@@ -133,8 +133,8 @@ internal class SyncManager(
                         return fetchAndPersistAllLocalizations(
                             targetVersion = ver.version,
                             etag = meta.etag,
-                            defaultLang = meta.defaultLanguage,
-                            availableLangs = meta.availableLanguages
+                            fallbackDefaultLang = meta.defaultLanguage,
+                            fallbackAvailableLangs = meta.availableLanguages
                         )
                     } else {
                         log(LocalflowConfig.LogLevel.VERBOSE, "Cache is already up to date. Version: ${meta.version}")
@@ -164,14 +164,17 @@ internal class SyncManager(
     private suspend fun fetchAndPersistAllLocalizations(
         targetVersion: Int,
         etag: String?,
-        defaultLang: String,
-        availableLangs: List<LanguageInfo>
+        fallbackDefaultLang: String,
+        fallbackAvailableLangs: List<LanguageInfo>
     ): Boolean {
         log(LocalflowConfig.LogLevel.VERBOSE, "Fetching full localizations bundle...")
         when (val locResult = api.getLocalizations(etag)) {
             is ApiResult.Success -> {
                 val locResponse = locResult.data
                 val newEtag = locResult.etag ?: locResponse.etag
+                
+                val newAvailableLangs = locResponse.availableLanguages.ifEmpty { fallbackAvailableLangs }
+                val newDefaultLang = newAvailableLangs.firstOrNull { it.isDefault }?.code ?: fallbackDefaultLang
                 
                 log(LocalflowConfig.LogLevel.BASIC, "Localization bundle download successful. Version: $targetVersion")
                 
@@ -181,8 +184,8 @@ internal class SyncManager(
                     etag = newEtag,
                     checksum = locResponse.checksum,
                     publishedAt = locResponse.publishedAt,
-                    defaultLanguage = defaultLang,
-                    availableLanguages = availableLangs,
+                    defaultLanguage = newDefaultLang,
+                    availableLanguages = newAvailableLangs,
                     lastSyncTimestamp = System.currentTimeMillis()
                 )
 
@@ -222,6 +225,10 @@ internal class SyncManager(
                 Log.e("SyncManager", "Error in OnTranslationsChangedListener", e)
             }
         }
+    }
+
+    internal fun notifyTranslationsChanged() {
+        notifyListeners(currentMetadata?.version ?: 0)
     }
 
     fun addListener(listener: OnTranslationsChangedListener) {

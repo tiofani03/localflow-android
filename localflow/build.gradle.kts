@@ -92,7 +92,7 @@ afterEvaluate {
 
                 groupId = "com.github.tiofani03"
                 artifactId = "localflow-sdk"
-                version = "1.0.0"
+                version = "1.0.1-SNAPSHOT"
 
                 pom {
                     name.set("LocalFlow SDK")

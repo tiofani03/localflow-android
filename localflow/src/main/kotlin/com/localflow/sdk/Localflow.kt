@@ -151,6 +151,7 @@ object Localflow {
         requireInitialized()
         translationProvider?.setLanguage(code)
         resolveAndSetBestLanguage()
+        syncManager?.notifyTranslationsChanged()
     }
 
     /**

@@ -57,7 +57,7 @@ jobs:
         run: ./gradlew :${{ env.MODULE_NAME }}:tasks --all | grep publish || true
 
       - name: Publish release to Maven Local
-        run: ./gradlew :${{ env.MODULE_NAME }}:clean :${{ env.MODULE_NAME }}:publishReleasePublicationToMavenLocal --stacktrace
+        run: ./gradlew :${{ env.MODULE_NAME }}:clean :${{ env.MODULE_NAME }}:publishReleasePublicationToMavenLocal -PVERSION_NAME="$VERSION_NAME" --stacktrace
 
       - name: Check Maven Local artifact
         run: |

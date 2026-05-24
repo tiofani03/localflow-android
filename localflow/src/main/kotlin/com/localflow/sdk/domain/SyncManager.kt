@@ -49,6 +49,9 @@ internal class SyncManager(
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing = _isSyncing.asStateFlow()
 
+    private val _availableLanguages = MutableStateFlow<List<LanguageInfo>>(emptyList())
+    val availableLanguages = _availableLanguages.asStateFlow()
+
     init {
         // Startup behavior: Immediately load disk cache into memory
         scope.launch {
@@ -68,6 +71,7 @@ internal class SyncManager(
             val diskMeta = diskCache.loadMetadata()
             if (diskData != null && diskMeta != null) {
                 currentMetadata = diskMeta
+                _availableLanguages.value = diskMeta.availableLanguages
                 memoryCache.updateAll(diskData)
                 log(LocalflowConfig.LogLevel.BASIC, "Disk cache loaded successfully. Version: ${diskMeta.version}")
             } else {
@@ -192,6 +196,7 @@ internal class SyncManager(
                 val saved = diskCache.saveCache(locResponse.localizations, newMeta)
                 if (saved) {
                     currentMetadata = newMeta
+                    _availableLanguages.value = newMeta.availableLanguages
                     memoryCache.updateAll(locResponse.localizations)
                     notifyListeners(targetVersion)
                     return true

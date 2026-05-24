@@ -237,6 +237,15 @@ object Localflow {
     }
 
     /**
+     * Expose a Flow of the available languages list.
+     * Use this in Jetpack Compose to dynamically update language pickers when sync finishes.
+     */
+    fun observeAvailableLanguages(): Flow<List<LanguageInfo>> {
+        requireInitialized()
+        return syncManager?.availableLanguages ?: kotlinx.coroutines.flow.emptyFlow()
+    }
+
+    /**
      * Get current active version of loaded localizations.
      */
     fun getVersion(): Int? {

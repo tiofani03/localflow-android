@@ -6,6 +6,10 @@ plugins {
     `maven-publish`
 }
 
+val publishVersion = providers.gradleProperty("VERSION_NAME")
+    .orElse("1.0.1-SNAPSHOT")
+    .get()
+
 android {
     namespace = "com.localflow.sdk"
     compileSdk = 35
@@ -92,7 +96,7 @@ afterEvaluate {
 
                 groupId = "com.github.tiofani03"
                 artifactId = "localflow-sdk"
-                version = "1.0.1-SNAPSHOT"
+                version = publishVersion
 
                 pom {
                     name.set("LocalFlow SDK")

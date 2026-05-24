@@ -2,9 +2,22 @@ name: Check JitPack Publish
 
 on:
   workflow_dispatch:
+    inputs:
+      version_name:
+        description: "SDK version to check"
+        required: true
+        default: "1.0.1-SNAPSHOT"
+        type: string
+
   push:
     branches:
       - main
+
+env:
+  MODULE_NAME: localflow
+  GROUP_PATH: com/github/tiofani03
+  ARTIFACT_ID: localflow-sdk
+  DEFAULT_VERSION_NAME: 1.0.1-SNAPSHOT
 
 jobs:
   check-publish:
@@ -12,6 +25,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Resolve version
+        run: |
+          if [ -n "${{ github.event.inputs.version_name }}" ]; then
+            echo "VERSION_NAME=${{ github.event.inputs.version_name }}" >> "$GITHUB_ENV"
+          else
+            echo "VERSION_NAME=${{ env.DEFAULT_VERSION_NAME }}" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -25,13 +46,58 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Show resolved config
+        run: |
+          echo "Module      : $MODULE_NAME"
+          echo "Group path  : $GROUP_PATH"
+          echo "Artifact ID : $ARTIFACT_ID"
+          echo "Version     : $VERSION_NAME"
+
       - name: Show publish tasks
-        run: ./gradlew :localflow:tasks --all | grep publish || true
+        run: ./gradlew :${{ env.MODULE_NAME }}:tasks --all | grep publish || true
 
       - name: Publish release to Maven Local
-        run: ./gradlew :localflow:clean :localflow:publishReleasePublicationToMavenLocal --stacktrace
+        run: ./gradlew :${{ env.MODULE_NAME }}:clean :${{ env.MODULE_NAME }}:publishReleasePublicationToMavenLocal --stacktrace
 
       - name: Check Maven Local artifact
         run: |
           echo "Checking Maven Local artifact..."
-          ls -lah ~/.m2/repository/com/github/tiofani03/localflow-sdk/1.0.0/
+
+          ARTIFACT_PATH="$HOME/.m2/repository/${GROUP_PATH}/${ARTIFACT_ID}/${VERSION_NAME}"
+
+          echo "Expected artifact path:"
+          echo "$ARTIFACT_PATH"
+
+          if [ ! -d "$ARTIFACT_PATH" ]; then
+            echo "Artifact directory not found."
+            echo ""
+            echo "Available localflow artifacts:"
+            find "$HOME/.m2/repository" -iname "*localflow*" | sort || true
+            echo ""
+            echo "Available tiofani artifacts:"
+            find "$HOME/.m2/repository/com/github/tiofani03" -maxdepth 5 -type f | sort || true
+            exit 1
+          fi
+
+          echo "Artifact found:"
+          ls -lah "$ARTIFACT_PATH"
+
+      - name: Validate required Maven files
+        run: |
+          ARTIFACT_PATH="$HOME/.m2/repository/${GROUP_PATH}/${ARTIFACT_ID}/${VERSION_NAME}"
+
+          echo "Validating Maven files in:"
+          echo "$ARTIFACT_PATH"
+
+          test -f "$ARTIFACT_PATH/${ARTIFACT_ID}-${VERSION_NAME}.aar"
+          test -f "$ARTIFACT_PATH/${ARTIFACT_ID}-${VERSION_NAME}.pom"
+          test -f "$ARTIFACT_PATH/${ARTIFACT_ID}-${VERSION_NAME}.module"
+
+          echo "Required Maven files exist."
+
+      - name: Print generated POM
+        run: |
+          POM_PATH="$HOME/.m2/repository/${GROUP_PATH}/${ARTIFACT_ID}/${VERSION_NAME}/${ARTIFACT_ID}-${VERSION_NAME}.pom"
+
+          echo "Generated POM:"
+          cat "$POM_PATH"

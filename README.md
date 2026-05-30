@@ -11,7 +11,7 @@ The **Locaflow Android SDK** is a lightweight, efficient, and reactive localizat
 ## Documentation
 
 For full integration guides, configuration options, and API references, please visit our official documentation:
-[Locaflow Android Documentation](https://localflow-1085648460092.asia-southeast2.run.app/docs/android-sdk/quickstart)
+[Locaflow Android Documentation](https://localflow-1085648460092.asia-southeast2.run.app/docs/mobile-sdk/android-sdk/quickstart)
 
 ## Installation
 
@@ -32,7 +32,7 @@ Localflow.initialize(
     context = this,
     config = LocalflowConfig.Builder(
         apiKey = "YOUR_API_KEY",
-        baseUrl = "https://api.locaflow.com"
+        baseUrl = "https://localflow-1085648460092.asia-southeast2.run.app"
     ).build()
 )
 ```

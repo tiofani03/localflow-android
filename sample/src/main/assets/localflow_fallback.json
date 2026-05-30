@@ -1,0 +1,14 @@
+{
+  "en": {
+    "home.title": "Asset Fallback <b>Home</b>",
+    "home.subtitle": "Hello {name}, welcome to <i>{app}</i>!",
+    "login.title": "Asset Login",
+    "login.button": "Asset Sign In"
+  },
+  "id": {
+    "home.title": "Beranda <b>Asset Fallback</b>",
+    "home.subtitle": "Halo {name}, selamat datang di <i>{app}</i>!",
+    "login.title": "Masuk Asset",
+    "login.button": "Tombol Masuk Asset"
+  }
+}

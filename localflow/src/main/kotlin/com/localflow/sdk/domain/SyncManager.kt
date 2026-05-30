@@ -76,6 +76,16 @@ internal class SyncManager(
                 log(LocalflowConfig.LogLevel.BASIC, "Disk cache loaded successfully. Version: ${diskMeta.version}")
             } else {
                 log(LocalflowConfig.LogLevel.BASIC, "No local cache found on disk.")
+                config.fallbackAssetPath?.let { assetPath ->
+                    log(LocalflowConfig.LogLevel.VERBOSE, "Attempting to load fallback from asset: $assetPath")
+                    val assetData = diskCache.loadFallbackFromAsset(assetPath)
+                    if (assetData != null) {
+                        memoryCache.updateAll(assetData)
+                        log(LocalflowConfig.LogLevel.BASIC, "Fallback asset loaded to memory cache successfully.")
+                    } else {
+                        log(LocalflowConfig.LogLevel.BASIC, "Failed to load fallback asset from: $assetPath")
+                    }
+                }
             }
         }
     }

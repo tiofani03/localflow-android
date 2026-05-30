@@ -11,13 +11,14 @@ class SampleApplication : Application() {
         
         // Configuration mapped to localhost Next.js server running in dev mode
         val config = LocalflowConfig.Builder(
-            apiKey = "lloc_live_8cd75ae4819d67e8cbda063460f79b8c3f6fde7969b084702f62773208df299f", // Seeded key
-            baseUrl = "http://192.168.0.114:3000"
+            apiKey = "loc_live_8cd75ae4819d67e8cbda063460f79b8c3f6fde7969b084702f62773208df299f", // Seeded key
+            baseUrl = "https://localflow-1085648460092.asia-southeast2.run.app/"
         )
             .defaultLanguage("en")
             .syncIntervalMs(60_000L) // 1 minute interval for quick testing
             .enableAutoSync(true)
             .logLevel(LocalflowConfig.LogLevel.VERBOSE)
+            .fallbackAssetPath("localflow_fallback.json")
             .build()
 
         Localflow.initialize(this, config)

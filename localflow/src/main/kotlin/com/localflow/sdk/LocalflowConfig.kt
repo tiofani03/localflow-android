@@ -12,7 +12,8 @@ data class LocalflowConfig private constructor(
     val enableAutoSync: Boolean,
     val connectTimeoutMs: Long,
     val readTimeoutMs: Long,
-    val logLevel: LogLevel
+    val logLevel: LogLevel,
+    val fallbackAssetPath: String?
 ) {
     enum class LogLevel {
         NONE, BASIC, VERBOSE
@@ -28,6 +29,7 @@ data class LocalflowConfig private constructor(
         private var connectTimeoutMs: Long = 30_000L
         private var readTimeoutMs: Long = 30_000L
         private var logLevel: LogLevel = LogLevel.NONE
+        private var fallbackAssetPath: String? = null
 
         /**
          * Set the default fallback language code (e.g. "en", "id").
@@ -72,6 +74,14 @@ data class LocalflowConfig private constructor(
         }
 
         /**
+         * Set the fallback JSON file path from the assets folder.
+         * Used when the local cache is empty.
+         */
+        fun fallbackAssetPath(path: String) = apply {
+            this.fallbackAssetPath = path
+        }
+
+        /**
          * Build the configuration.
          * Throws [IllegalArgumentException] if parameters are invalid.
          */
@@ -90,7 +100,8 @@ data class LocalflowConfig private constructor(
                 enableAutoSync = enableAutoSync,
                 connectTimeoutMs = connectTimeoutMs,
                 readTimeoutMs = readTimeoutMs,
-                logLevel = logLevel
+                logLevel = logLevel,
+                fallbackAssetPath = fallbackAssetPath
             )
         }
     }

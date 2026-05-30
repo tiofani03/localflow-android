@@ -109,6 +109,16 @@ internal class DiskCache(
         }
     }
 
+    suspend fun loadFallbackFromAsset(assetFileName: String): Map<String, Map<String, String>>? = withContext(Dispatchers.IO) {
+        try {
+            val content = context.assets.open(assetFileName).bufferedReader().use { it.readText() }
+            json.decodeFromString<Map<String, Map<String, String>>>(content)
+        } catch (e: Exception) {
+            Log.e("DiskCache", "Error loading fallback from asset: $assetFileName", e)
+            null
+        }
+    }
+
     // Helper custom MapSerializer to represent the nested structure
     private val MapSerializer = kotlinx.serialization.serializer<Map<String, Map<String, String>>>()
 }

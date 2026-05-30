@@ -38,6 +38,7 @@ import com.localflow.sdk.Localflow
 import com.localflow.sdk.ui.compose.LocalflowProvider
 import com.localflow.sdk.ui.compose.LocalflowSyncEffect
 import com.localflow.sdk.ui.compose.localflowString
+import com.localflow.sdk.ui.compose.localflowHtmlString
 import com.localflow.sdk.ui.compose.rememberLocalflowLanguages
 
 class ComposeDemoActivity : ComponentActivity() {
@@ -94,18 +95,20 @@ fun ComposeDemoScreen(
             verticalArrangement = Arrangement.Top
         ) {
             
-            // Dynamic text using Compose helper functions
+            // Dynamic text using Compose helper functions (with HTML support)
             Text(
-                text = localflowString("home.title"),
+                text = localflowHtmlString("home.title"),
                 fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFF212121)
+                color = Color(0xFF212121) // Removed FontWeight here to allow HTML <b> tag to work
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = localflowString("home.subtitle"),
+                text = localflowHtmlString(
+                    "home.subtitle",
+                    mapOf("name" to "Locaflow User", "app" to "Android SDK")
+                ),
                 fontSize = 18.sp,
                 color = Color(0xFF757575)
             )

@@ -128,6 +128,19 @@ object Localflow {
     }
 
     /**
+     * Get translated text for the specified key, replacing {placeholder} blocks with values from namedArgs.
+     */
+    fun getString(key: String, namedArgs: Map<String, Any>): String {
+        var raw = getString(key)
+        if (namedArgs.isNotEmpty()) {
+            for ((k, v) in namedArgs) {
+                raw = raw.replace("{$k}", v.toString())
+            }
+        }
+        return raw
+    }
+
+    /**
      * Get translated text for the specified key or null if not found.
      */
     fun getStringOrNull(key: String): String? {
@@ -150,7 +163,6 @@ object Localflow {
     fun setLanguage(code: String) {
         requireInitialized()
         translationProvider?.setLanguage(code)
-        resolveAndSetBestLanguage()
         syncManager?.notifyTranslationsChanged()
     }
 

@@ -1,6 +1,7 @@
 package com.localflow.sdk.ui.xml
 
 import android.content.res.Resources
+import androidx.core.text.HtmlCompat
 import com.localflow.sdk.Localflow
 
 /**
@@ -42,7 +43,7 @@ class LocalflowResources(
         if (entryName != null) {
             val dynamicString = Localflow.getStringOrNull(entryName)
             if (dynamicString != null) {
-                return dynamicString
+                return HtmlCompat.fromHtml(dynamicString, HtmlCompat.FROM_HTML_MODE_COMPACT)
             }
         }
         return delegate.getText(id)
@@ -54,7 +55,7 @@ class LocalflowResources(
         if (entryName != null) {
             val dynamicString = Localflow.getStringOrNull(entryName)
             if (dynamicString != null) {
-                return dynamicString
+                return HtmlCompat.fromHtml(dynamicString, HtmlCompat.FROM_HTML_MODE_COMPACT)
             }
         }
         return delegate.getText(id, def)

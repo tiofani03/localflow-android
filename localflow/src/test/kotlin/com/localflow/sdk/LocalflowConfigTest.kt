@@ -19,6 +19,7 @@ class LocalflowConfigTest {
             .connectTimeoutMs(15_000L)
             .readTimeoutMs(20_000L)
             .logLevel(LocalflowConfig.LogLevel.VERBOSE)
+            .fallbackAssetPath("test_fallback.json")
             .build()
 
         assertEquals("loc_live_abc123", config.apiKey)
@@ -31,6 +32,7 @@ class LocalflowConfigTest {
         assertEquals(15_000L, config.connectTimeoutMs)
         assertEquals(20_000L, config.readTimeoutMs)
         assertEquals(LocalflowConfig.LogLevel.VERBOSE, config.logLevel)
+        assertEquals("test_fallback.json", config.fallbackAssetPath)
     }
 
     @Test
@@ -46,6 +48,7 @@ class LocalflowConfigTest {
         assertEquals(30_000L, config.connectTimeoutMs)
         assertEquals(30_000L, config.readTimeoutMs)
         assertEquals(LocalflowConfig.LogLevel.NONE, config.logLevel)
+        assertEquals(null, config.fallbackAssetPath)
     }
 
     @Test(expected = IllegalArgumentException::class)

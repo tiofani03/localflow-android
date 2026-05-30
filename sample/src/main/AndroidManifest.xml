@@ -14,18 +14,17 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".XmlDemoActivity"
+            android:name=".XmlDemoActivity">
+        </activity>
+
+        <activity
+            android:name=".ComposeDemoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ComposeDemoActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
             
         <activity
             android:name=".XmlDetailActivity"

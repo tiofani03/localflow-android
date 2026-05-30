@@ -12,9 +12,19 @@ import com.localflow.sdk.data.model.LanguageInfo
 /**
  * Remembers the list of currently registered languages within the project.
  */
+import androidx.compose.runtime.collectAsState
+
 @Composable
 fun rememberLocalflowLanguages(): List<LanguageInfo> {
-    return remember { Localflow.getAvailableLanguages() }
+    return Localflow.observeAvailableLanguages().collectAsState(initial = Localflow.getAvailableLanguages()).value
+}
+
+/**
+ * Remembers the currently active language code.
+ */
+@Composable
+fun rememberLocalflowLanguage(): String {
+    return Localflow.observeLanguage().collectAsState(initial = Localflow.getCurrentLanguage()).value
 }
 
 /**

@@ -187,7 +187,7 @@ internal class SyncManager(
                 val locResponse = locResult.data
                 val newEtag = locResult.etag ?: locResponse.etag
                 
-                val newAvailableLangs = locResponse.availableLanguages.ifEmpty { fallbackAvailableLangs }
+                val newAvailableLangs = locResponse.availableLanguages
                 val newDefaultLang = newAvailableLangs.firstOrNull { it.isDefault }?.code ?: fallbackDefaultLang
                 
                 log(LocalflowConfig.LogLevel.BASIC, "Localization bundle download successful. Version: $targetVersion")
